@@ -2,10 +2,15 @@
 
 <hr />
 Flatlist Scroll is library help user scroll fetch data from API with return next number page.
+- Scroll paginate return next page number
+- Build item widget in listview
+- Load more data when user scroll to bottom
+- Catch error if response null from API
 
 ## Screenshot
 
 <img src="https://raw.githubusercontent.com/RathaIct/Flatlist-Scroll-Plugin/main/demo.gif" width="320" />
+<img src="https://raw.githubusercontent.com/RathaIct/Flatlist-Scroll-Plugin/main/demo2.gif" width="320" />
 
 ## Usage
 
@@ -33,9 +38,9 @@ Flatlist Scroll is library help user scroll fetch data from API with return next
 <br />
 ជំនាញ បង្កើតកម្មវិធីទូរស័ព្ទ
 <br />
-បទពិសោធន៍ Flutter, ReactNative
+បទពិសោធន៍ Flutter, ReactNative, Laravel
 <br />
-ទូរស័ព្ទ 096 659 2250 <a href="tel:0966592250">📞</a>
+ទូរស័ព្ទ 096 659 2250 📞
 
 ### គេហទំព័រ
 

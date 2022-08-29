@@ -1,6 +1,6 @@
 name: flatlist_scroll
-description: Scroll pagination fetch more data
-version: 0.0.1
+description: Scroll pagination fetch data from API return number next page and render widget put in listview.
+version: 0.0.2
 homepage:
 
 environment:

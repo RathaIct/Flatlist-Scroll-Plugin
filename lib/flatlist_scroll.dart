@@ -11,6 +11,9 @@ class FlatlistScroll extends StatefulWidget {
   final int onLoadMoreThreshold;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
+  final Widget? errorWidget;
+  final String errorMessage;
+  final bool reverse;
   FlatlistScroll({
     Key? key,
     required this.controller,
@@ -22,6 +25,9 @@ class FlatlistScroll extends StatefulWidget {
     this.updated,
     this.loadingWidget,
     this.emptyWidget,
+    this.errorWidget,
+    this.errorMessage = "Error!",
+    this.reverse = false,
   }) : super(key: key);
 
   @override
@@ -29,10 +35,10 @@ class FlatlistScroll extends StatefulWidget {
 }
 
 class _FlatlistScrollState extends State<FlatlistScroll> {
-  int page = 0;
+  int page = 1;
   bool loaded = false;
   bool stopLoaded = false;
-  String? error;
+  String error = "";
   @override
   void initState() {
     super.initState();
@@ -41,7 +47,7 @@ class _FlatlistScrollState extends State<FlatlistScroll> {
 
   @override
   void dispose() {
-    page = 0;
+    page = 1;
     loaded = false;
     stopLoaded = false;
     super.dispose();
@@ -63,17 +69,19 @@ class _FlatlistScrollState extends State<FlatlistScroll> {
 
   Future loadData({bool isRefresh = false}) async {
     if (isRefresh) {
-      page = 0;
+      page = 1;
       loaded = false;
       stopLoaded = false;
       widget.data.clear();
     }
     if (widget.onLoadMore != null) {
       loaded = false;
-      page++;
       final list = await widget.onLoadMore!(page);
       loaded = true;
       if (list != null) {
+        page++;
+        stopLoaded = false;
+        error = "";
         widget.data += list;
         if (list.isEmpty) {
           setState(() {
@@ -86,7 +94,10 @@ class _FlatlistScrollState extends State<FlatlistScroll> {
           setState(() {});
         }
       } else {
-        error = "Error!";
+        setState(() {
+          stopLoaded = true;
+          error = widget.errorMessage;
+        });
       }
     }
   }
@@ -101,6 +112,7 @@ class _FlatlistScrollState extends State<FlatlistScroll> {
         }
       },
       child: ListView(
+        reverse: widget.reverse,
         controller: widget.controller,
         children: [
           ...widget.data.map((e) => widget.renderItem(e)).toList(),
@@ -116,7 +128,35 @@ class _FlatlistScrollState extends State<FlatlistScroll> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(8.0),
                   child: const Text("No data"),
-                )
+                ),
+          if (error.isNotEmpty)
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: loadData,
+                child: widget.errorWidget ??
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Icon(
+                            Icons.refresh,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "RETRY",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+              ),
+            ),
         ],
       ),
     );
