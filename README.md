@@ -3,8 +3,10 @@
 Flatlist Scroll is library help user scroll fetch data from API with return next number page.
 
 ## screenshot
-<img src="https://raw.githubusercontent.com/RathaIct/Flatlist-Scroll-Plugin/main/demo.gif" width="320" />
 
+<video width="400" controls>
+  <source src="https://raw.githubusercontent.com/RathaIct/Flatlist-Scroll-Plugin/main/video.mp4" type="video/mp4">
+</video>
 ## Note
 
 
