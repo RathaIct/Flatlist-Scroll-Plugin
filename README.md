@@ -2,9 +2,7 @@
 <hr />
 Flatlist Scroll is library help user scroll fetch data from API with return next number page.
 ## screenshot
-<video width="400" controls>
-  <source src="https://raw.githubusercontent.com/RathaIct/KhmerDateDart/main/video.mp4" type="video/mp4" />
-</video>
+<img src="https://raw.githubusercontent.com/RathaIct/KhmerDateDart/main/demo.gif" width="320" />
 ## Note
 
 
